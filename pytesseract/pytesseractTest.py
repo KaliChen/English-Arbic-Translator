@@ -40,8 +40,11 @@ def get_img_data(f, maxsize = (1200, 850), first = False):
 
 def get_img_data2(f, maxsize = (1200, 850), first = False):
 
-    img = cv2.imread(f)
-
+    #Set "img" as cv2 object from "f"
+    imgcv2 = cv2.imread(f)
+    #img of PIL object
+    #img_PIL = Image.open(f)
+    #imgOut = imgcv2.copy()
     # Open output.csv
     with open('output.csv') as csvfile:
         # Read output.csv
@@ -55,28 +58,22 @@ def get_img_data2(f, maxsize = (1200, 850), first = False):
                  +split[1]#begin(x)
                  +","
                  +split[2]#begin(y)
-                 +"), ("
+                 +") , ("
                  +split[3]#end(x)
                  +","
                  +split[4]#end(y)
                  +")"
                  )
 
-            #-------------------------------------------------------------------------------------
+            #-------------------------------
             #draw the rectangles on the text
-            #-------------------------------------------------------------------------------------
-            cv2.rectangle(img, (int(split[1]), int(split[2]) ),(int(split[3]), int(split[4])), (55,255,155),1)
+            #-------------------------------
+            cv2.rectangle(imgcv2, (int(split[1]), int(split[2])),(int(split[3]), int(split[4])), (55,255,155),1)
             #put the text on the image
-            #cv2.putText(img, split[0], (int(split[1]), int(split[2]) ),(int(split[3]), int(split[4])), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
+            #cv2.putText(imgcv2, split[0], (int(split[1]), int(split[2]) ),(int(split[3]), int(split[4])), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
-    # 顯示圖片
-    ##cv2.imshow('My Car Image', img)
 
-    # 按下任意鍵則關閉所有視窗
-    ##cv2.waitKey(0)
-    ##cv2.destroyAllWindows()
-
-    cv2.imwrite('output.png', img)
+    cv2.imwrite('output.png', imgcv2)
 
     """
     Generate image data using PIL
@@ -104,24 +101,6 @@ def main():
     #path of img
     #print(img)
 
-    #------------------------------------------------------------------------------
-    #Arabic text image to string
-    #print(pytesseract.image_to_string(img, lang='ara'))
-    print("==============================================================")
-    print("image_to_string")
-    print("==============================================================")
-    print(pytesseract.image_to_string(img, lang = 'eng'))
-
-    print("==============================================================")
-    print("image_to_boxes")
-    print("==============================================================")
-    print(pytesseract.image_to_boxes(img, lang = 'eng'))
-
-    #print("==============================================================")
-    #print("image_to_osd")
-    #print("==============================================================")
-    #print(pytesseract.image_to_osd(img, lang='osd', config='', nice=0))
-    #------------------------------------------------------------------------------
 
     #Set output.csv can write and read
     output = open(r"output.csv","w")
@@ -160,7 +139,7 @@ def main():
     # +----------+-----------+
     col = [[filename_display_elem], [image_elem]]
 
-    col_files = [[sg.ReadButton('Next', size=(8,2)), sg.ReadButton('Prev', size=(8,2)),]]
+    col_files = [[sg.Output(size=(50, 10))]]
 
     layout = [[sg.Column(col_files), sg.Column(col)]]
 
@@ -172,6 +151,27 @@ def main():
         # read the form
         event, values = window.Read()
         ##print(event, values)
+        if event is None:
+            break
+        #------------------------------------------------------------------------------
+        #Arabic text image to string
+        #print(pytesseract.image_to_string(img, lang='ara'))
+        print("===============")
+        print("image_to_string")
+        print("===============")
+        print(pytesseract.image_to_string(img, lang = 'eng'))
+
+        #print("============== ")
+        #print("image_to_boxes")
+        #print("===============")
+        #print(pytesseract.image_to_boxes(img, lang = 'eng'))
+
+        #print("==============================================================")
+        #print("image_to_osd")
+        #print("==============================================================")
+        #print(pytesseract.image_to_osd(img, lang='osd', config='', nice=0))
+        #------------------------------------------------------------------------------
+
 
 if __name__ == '__main__':
     main()
