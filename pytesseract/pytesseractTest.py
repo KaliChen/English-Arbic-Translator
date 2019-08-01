@@ -42,37 +42,41 @@ def get_img_data2(f, maxsize = (1200, 850), first = False):
 
     #Set "img" as cv2 object from "f"
     imgcv2 = cv2.imread(f)
-    #img of PIL object
-    #img_PIL = Image.open(f)
-    #imgOut = imgcv2.copy()
+
+    #图像垂直翻转(1)
+    flipped = cv2.flip(imgcv2,0)
+
     # Open output.csv
     with open('output.csv') as csvfile:
         # Read output.csv
         rows = csv.reader(csvfile)
         headers = next(rows)
         for row in rows:
+        
             #print(row)
             split = row[0].split()
-            print(split[0]
-                 +"("
-                 +split[1]#begin(x)
-                 +","
-                 +split[2]#begin(y)
-                 +") , ("
-                 +split[3]#end(x)
-                 +","
-                 +split[4]#end(y)
-                 +")"
-                 )
-
+            #print(split[0]
+            #     +"("
+            #     +split[1]#begin(x)
+            #     +","
+            #     +split[2]#begin(y)
+            #     +") , ("
+            #     +split[3]#end(x)
+            #     +","
+            #     +split[4]#end(y)
+            #     +")"
+            #     )
+        
             #-------------------------------
             #draw the rectangles on the text
             #-------------------------------
-            cv2.rectangle(imgcv2, (int(split[1]), int(split[2])),(int(split[3]), int(split[4])), (55,255,155),1)
+            cv2.rectangle(flipped, (int(split[1]), int(split[2])),(int(split[3]), int(split[4])), (55,255,155),1)
             #put the text on the image
             #cv2.putText(imgcv2, split[0], (int(split[1]), int(split[2]) ),(int(split[3]), int(split[4])), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
-
+    #图像垂直翻转(2)
+    imgcv2 = cv2.flip(flipped,0)
+ 
     cv2.imwrite('output.png', imgcv2)
 
     """
@@ -105,7 +109,7 @@ def main():
     #Set output.csv can write and read
     output = open(r"output.csv","w")
     #write image_to_boxes data to CSV
-    output.write(pytesseract.image_to_boxes(img, lang = 'eng'))
+    output.write(pytesseract.image_to_boxes(img, lang = 'ara'))
     #Using CSV writer :
     output.close()
 
@@ -130,12 +134,12 @@ def main():
 
     #Define layout, show and read the form
     # +----------+-----------+
-    # | +--+ +--+| +--------+|
-    # | |  | |  || |        ||
-    # | |  | |  || +--------+|
-    # | +--+ +--+| +--------+|
-    # |          | |        ||
-    # |          | +--------+|
+    # | +---- --+| +--------+|
+    # | |       || |        ||
+    # | |       || +--------+|
+    # | |       || +--------+|
+    # | |       || |        ||
+    # | +-------+| +--------+|
     # +----------+-----------+
     col = [[filename_display_elem], [image_elem]]
 
@@ -159,16 +163,16 @@ def main():
         print("===============")
         print("image_to_string")
         print("===============")
-        print(pytesseract.image_to_string(img, lang = 'eng'))
+        print(pytesseract.image_to_string(img, lang = 'ara'))
 
         #print("============== ")
         #print("image_to_boxes")
         #print("===============")
         #print(pytesseract.image_to_boxes(img, lang = 'eng'))
 
-        #print("==============================================================")
+        #print("===============")
         #print("image_to_osd")
-        #print("==============================================================")
+        #print("===============")
         #print(pytesseract.image_to_osd(img, lang='osd', config='', nice=0))
         #------------------------------------------------------------------------------
 

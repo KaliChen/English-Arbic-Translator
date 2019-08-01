@@ -133,9 +133,9 @@ Prerequisites:
 | Envirement:
 .. code-block:: bash   
     
-    $ (env)> sudo apt-get install tesseract
+    $> sudo apt-get install tesseract
     
-    $ (env)> pip install PySimpleGUI
+    $> pip install PySimpleGUI
 
 
 | Installing via pip:
@@ -144,26 +144,33 @@ Check the `pytesseract package page <https://pypi.python.org/pypi/pytesseract>`_
 
 .. code-block:: bash
 
-    $ (env)> pip install pytesseract
+    $> pip install pytesseract
 
 | Or if you have git installed:
 
 .. code-block:: bash
 
-    $ (env)> pip install -U git+https://github.com/madmaze/pytesseract.git
+    $> pip install -U git+https://github.com/madmaze/pytesseract.git
 
 | Installing from source:
 
 .. code-block:: bash
 
     $> git clone https://github.com/madmaze/pytesseract.git
-    $ (env)> cd pytesseract && pip install -U .
+    $> cd pytesseract && pip install -U .
 | DEMO
 .. code-block:: bash
 
-    $> (env)> python pytesseractTest.py
+    $> python pytesseractTest.py
 
+| The simpliest way is to install the needed package:
+.. code-block:: bash
 
+    $> sudo apt-get install tesseract-ocr-eng  #for english
+    $> sudo apt-get install tesseract-ocr-tam  #for tamil
+    $> sudo apt-get install tesseract-ocr-deu  #for deutsch (German)
+    $> sudo apt-get install tesseract-ocr-ara  #for Arabic
+    
 LICENSE
 -------
 Python-tesseract is released under the GPL v3.
