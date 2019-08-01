@@ -12,6 +12,7 @@ from Result import Result
 from random import randint
 from Translator import Translator1
 from Translator import Translator2
+import arabic_reshaper
 
 
 import sys
@@ -49,4 +50,6 @@ while True:     # Event Loop
         break
     word1 = T1.TranslateSentense(values[0])
     word2 = T2.TranslateSentense(values[0])
-    print(word1 +"or"+ word2)
+    reshaped_text1 = arabic_reshaper.reshape(word1)
+    reshaped_text2 = arabic_reshaper.reshape(word2)   
+    print(reshaped_text1 +"or"+ reshaped_text2)
