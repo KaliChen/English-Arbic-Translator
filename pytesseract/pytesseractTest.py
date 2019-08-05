@@ -1,7 +1,7 @@
 
 #!/usr/bin/env python
 #!/usr/bin/python
-
+import arabic_reshaper
 from pytesseract import image_to_string
 from PIL import Image
 import pytesseract
@@ -163,7 +163,19 @@ def main():
         print("===============")
         print("image_to_string")
         print("===============")
-        print(pytesseract.image_to_string(img, lang = 'ara'))
+        Output_text = pytesseract.image_to_string(img, lang = 'ara')
+        #Output_text reverse left to right
+        order = []
+        for i in Output_text:
+            order.append(i)
+        order.reverse()
+        print(order)
+        Output_text = ''.join(order)
+        print(Output_text)
+
+        #reshaped the arabic words(continue shape)
+        #reshaped_text = arabic_reshaper.reshape(Output_text)
+        #print(reshaped_text)
 
         #print("============== ")
         #print("image_to_boxes")
