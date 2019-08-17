@@ -72,7 +72,8 @@ def get_img_data2(f, maxsize = (1200, 850), first = False):
             #-------------------------------
             cv2.rectangle(flipped, (int(split[1]), int(split[2])),(int(split[3]), int(split[4])), (55,255,155),1)
             #put the text on the image
-            #cv2.putText(imgcv2, split[0], (int(split[1]), int(split[2]) ),(int(split[3]), int(split[4])), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
+
+            #cv2.putText(flipped, split[0], (int(split[1]), int(split[2]) ), cv2.FONT_HERSHEY_PLAIN, 1, (0, 0, 255), 1, cv2.LINE_AA)
 
     #图像垂直翻转(2)
     imgcv2 = cv2.flip(flipped,0)
@@ -109,7 +110,7 @@ def main():
     #Set output.csv can write and read
     output = open(r"output.csv","w")
     #write image_to_boxes data to CSV
-    output.write(pytesseract.image_to_boxes(img, lang = 'ara'))
+    output.write(pytesseract.image_to_boxes(img, lang = 'jpn'))
     #Using CSV writer :
     output.close()
 
@@ -163,7 +164,7 @@ def main():
         print("===============")
         print("image_to_string")
         print("===============")
-        Output_text = pytesseract.image_to_string(img, lang = 'ara')
+        Output_text = pytesseract.image_to_string(img, lang = 'jpn')
         #Output_text reverse left to right
         order = []
         for i in Output_text:
