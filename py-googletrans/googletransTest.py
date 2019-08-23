@@ -24,10 +24,11 @@ translator = Translator(service_urls=[
 #3)Advanced Usage (Bulk)
 #  Array can be used to translate a batch of strings in a single method call and a single HTTP session. 
 #  The exact same method shown above work for arrays as well.
-
+"""
 translations = translator.translate(['The quick brown fox', 'jumps over', 'the lazy dog'], dest='ko')
 for translation in translations:
     print(translation.origin, ' -> ', translation.text)
+"""
 # The quick brown fox  ->  빠른 갈색 여우
 # jumps over  ->  이상 점프
 # the lazy dog  ->  게으른 개
@@ -46,26 +47,42 @@ for translation in translations:
 
 
 f = open('arabic-wordlist-1.6.txt','r')
-#print(f.read())
+"""
+add_num = open('arabic-wordlist-1-6-add_num.txt', 'a')
 
+line_nu = 0#计数器
+tmp  = ''
+for line in f:#一行行的把数据从硬盘加载到内存里读出来
+    #print('['+ str(line_nu) +'] \t'+ line.strip()+'\n')
+    tmp += '['+ str(line_nu) +'] \t'+ line.strip()+'\n'
+    add_num.write(tmp)
+    line_nu += 1
+    tmp =''
+add_num.close()
+"""
+
+ara2zhtw_write_in = open('ara2zh-tw.txt', 'w')
+
+#print(f.read())
+tmp = ''
 line_nu = 0#计数器
 for line in f:#一行行的把数据从硬盘加载到内存里读出来
     #print(line_nu)
-    translations = translator.translate( line.strip(), dest='en')
-    print(str(line_nu) + line.strip() + translations.text)
-
-##    print(translator.translate(line.strip(), src='ar', dest = 'en'))
-###    if line_nu <600 :#读取前600行
-###        print(translator.translate(line.strip(), src='ar', dest = 'en'))
-###        print(line.strip())        
-###        print(line_nu)
-###    else:
-###        break
+    tmp += '['+ str(line_nu) +'] \t'+ line.strip()+'\n'
+    #translations = translator.translate( line.strip(), dest='en')
+    #print(str(line_nu)+":" + line.strip() + translations.text)
+    #print(str(line_nu)+":" + line.strip())
     line_nu += 1
+    if(line_nu%100 == 0):
+        translations = translator.translate( tmp, dest='ja')
+        print(translations.text)
+        ara2eng_write_in.write(translations.text)
+        tmp = ''
+#print(tmp)
 
+ara2zhtw_write_in.close()
 
-
-
+f.close()
 """
 LANGUAGES = {
     'af': 'afrikaans',
