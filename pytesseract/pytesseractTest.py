@@ -110,7 +110,7 @@ def main():
     #Set output.csv can write and read
     output = open(r"output.csv","w")
     #write image_to_boxes data to CSV
-    output.write(pytesseract.image_to_boxes(img, lang = 'jpn'))
+    output.write(pytesseract.image_to_boxes(img, lang = 'ara'))
     #Using CSV writer :
     output.close()
 
@@ -164,7 +164,7 @@ def main():
         print("===============")
         print("image_to_string")
         print("===============")
-        Output_text = pytesseract.image_to_string(img, lang = 'jpn')
+        Output_text = pytesseract.image_to_string(img, lang = 'ara')
         #Output_text reverse left to right
         order = []
         for i in Output_text:
